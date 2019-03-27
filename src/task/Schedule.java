@@ -2,15 +2,17 @@ package task;
 
 import java.util.*;
 
-//gitgnore.io
 public class Schedule {
 
+    private Map<Train, String> trainDepartureTime;
 
-    // private, get, set
-    private Map<Train, String> trainDepartureTime = new HashMap<>();
+    private Map<Train, List<String>> listOfIntermediateStations;
 
-    private Map<Train, List<String>> listOfIntermediateStations = new HashMap<>();
-
+    Schedule(Map<Train, String> trainDepartureTime, Map<Train, List<String>> listOfIntermediateStations){
+        this.trainDepartureTime = trainDepartureTime;
+        this.listOfIntermediateStations = listOfIntermediateStations;
+    }
+    
     void addNewTrain(Train train, String time) {
         ArrayList<String> intermediateStations = new ArrayList<>();
         trainDepartureTime.put(train, time);
@@ -56,6 +58,22 @@ public class Schedule {
         String hoursToString = Integer.toString(hours);
         String minutesToString = Integer.toString(newMinutes);
         return String.join(":", hoursToString, minutesToString);
+    }
+
+    public Map<Train, List<String>> getListOfIntermediateStations() {
+        return listOfIntermediateStations;
+    }
+
+    public void setListOfIntermediateStations(Map<Train, List<String>> listOfIntermediateStations) {
+        this.listOfIntermediateStations = listOfIntermediateStations;
+    }
+
+    public Map<Train, String> getTrainDepartureTime() {
+        return trainDepartureTime;
+    }
+
+    public void setTrainDepartureTime(Map<Train, String> trainDepartureTime) {
+        this.trainDepartureTime = trainDepartureTime;
     }
 
     /*Train findNearestTrain(String currentTime, String arrivalStation) { // не void, а Train!!!
