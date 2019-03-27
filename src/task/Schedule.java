@@ -1,3 +1,5 @@
+package task;
+
 import java.util.*;
 
 //gitgnore.io
@@ -5,13 +7,12 @@ public class Schedule {
 
 
     // private, get, set
-    // Map
-    public Map<Train, String> trainDepartureTime = new HashMap<Train, String>();
+    private Map<Train, String> trainDepartureTime = new HashMap<>();
 
-    public Map<Train, List<String>> listOfIntermediateStations = new HashMap<Train, List<String>>();
+    private Map<Train, List<String>> listOfIntermediateStations = new HashMap<>();
 
-    public void addNewTrain(Train train, String time) {
-        ArrayList<String> intermediateStations = new ArrayList<String>();
+    void addNewTrain(Train train, String time) {
+        ArrayList<String> intermediateStations = new ArrayList<>();
         trainDepartureTime.put(train, time);
         listOfIntermediateStations.put(train, intermediateStations);
     }
@@ -25,7 +26,7 @@ public class Schedule {
         }
     }
 
-    public void addIntermediateStation(Train train, String stationName) {
+    void addIntermediateStation(Train train, String stationName) {
         if (listOfIntermediateStations.containsKey(train)) {
             List<String> intermediateStations = listOfIntermediateStations.get(train);
             intermediateStations.add(stationName);
@@ -33,7 +34,7 @@ public class Schedule {
         }
     }
 
-    public void removeIntermediateStation(Train train, String stationName) {
+    void removeIntermediateStation(Train train, String stationName) {
         if (listOfIntermediateStations.containsKey(train)) {
             List<String> intermediateStations = listOfIntermediateStations.get(train);
             intermediateStations.remove(stationName);
@@ -41,7 +42,7 @@ public class Schedule {
         }
     }
 
-    public int stringsToMinutes(String time) {
+    private int stringsToMinutes(String time) {
         String[] timeParts = time.split(":");
         int hours = Integer.parseInt(timeParts[0]);
         int hoursToMinutes = hours * 60;
@@ -49,7 +50,7 @@ public class Schedule {
         return hoursToMinutes + minutes;
     }
 
-    public String minutesToString(int minutes) {
+    private String minutesToString(int minutes) {
         int hours = minutes / 60;
         int newMinutes = minutes - hours * 60;
         String hoursToString = Integer.toString(hours);
@@ -57,8 +58,8 @@ public class Schedule {
         return String.join(":", hoursToString, minutesToString);
     }
 
-    public Train findNearestTrain(String currentTime, String arrivalStation) { // не void, а Train!!!
-        List<Train> sutableKeys = new ArrayList<Train>();
+    /*Train findNearestTrain(String currentTime, String arrivalStation) { // не void, а Train!!!
+        List<Train> sutableKeys = new ArrayList<>();
         for (Map.Entry<Train, List<String>> pair : listOfIntermediateStations.entrySet()) {
             List<String> stations = pair.getValue();
             Train train = pair.getKey();
@@ -69,7 +70,7 @@ public class Schedule {
             }
         } // эта часть собирает поезда(ключи) с наличием нужной станции
 
-        Map<Train, String> sutableTrains = new HashMap<Train, String>();
+        Map<Train, String> sutableTrains = new HashMap<>();
         for (Train sutableTrain : sutableKeys) {
             String value = trainDepartureTime.get(sutableTrain);
             if (trainDepartureTime.containsKey(sutableTrain))
@@ -94,8 +95,8 @@ public class Schedule {
             if (trainValue.equals(minTimeString))
                 answerTrain = trainKey;
         }
-        return answerTrain;
+        return answerTrain;*/
     }
-}
+
 
 
