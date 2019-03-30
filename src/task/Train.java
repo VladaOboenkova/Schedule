@@ -11,7 +11,6 @@ public class Train {
         this.endStation = endStation;
     }
 
-
     public String getNameOfTrain() {
         return nameOfTrain;
     }
@@ -26,5 +25,10 @@ public class Train {
 
     public void setEndStation(String endStation) {
         this.endStation = endStation;
+    }
+
+    @Override
+    public String toString(){
+        return this.getNameOfTrain();
     }
 }

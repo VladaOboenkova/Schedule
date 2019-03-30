@@ -4,60 +4,37 @@ import java.util.*;
 
 public class Schedule {
 
-    private Map<Train, String> trainDepartureTime;
+    private Map<Train, Time> trainDepartureTime = new HashMap<>();
 
-    private Map<Train, List<String>> listOfIntermediateStations;
+    private Map<Train, List<String>> listOfIntermediateStations = new HashMap<>();
 
-    Schedule(Map<Train, String> trainDepartureTime, Map<Train, List<String>> listOfIntermediateStations){
-        this.trainDepartureTime = trainDepartureTime;
-        this.listOfIntermediateStations = listOfIntermediateStations;
-    }
-    
-    void addNewTrain(Train train, String time) {
-        ArrayList<String> intermediateStations = new ArrayList<>();
+    boolean addNewTrain(Train train, Time time) {
+        List<String> intermediateStations = new ArrayList<>();
         trainDepartureTime.put(train, time);
         listOfIntermediateStations.put(train, intermediateStations);
+        return trainDepartureTime.containsKey(train) && listOfIntermediateStations.containsKey(train);
     }
 
-    // System.current - time, byte
-    // boolean
-    public void removeTrain(Train train) {
+    boolean removeTrain(Train train) {
         if (trainDepartureTime.containsKey(train)) {
             trainDepartureTime.remove(train);
             listOfIntermediateStations.remove(train);
         }
+        return !trainDepartureTime.containsKey(train) && !listOfIntermediateStations.containsKey(train);
     }
 
-    void addIntermediateStation(Train train, String stationName) {
+    boolean addIntermediateStation(Train train, String stationName) {
         if (listOfIntermediateStations.containsKey(train)) {
-            List<String> intermediateStations = listOfIntermediateStations.get(train);
-            intermediateStations.add(stationName);
-            listOfIntermediateStations.put(train, intermediateStations);
+            return listOfIntermediateStations.get(train).add(stationName);
         }
+        return false;
     }
 
-    void removeIntermediateStation(Train train, String stationName) {
+    boolean removeIntermediateStation(Train train, String stationName) {
         if (listOfIntermediateStations.containsKey(train)) {
-            List<String> intermediateStations = listOfIntermediateStations.get(train);
-            intermediateStations.remove(stationName);
-            listOfIntermediateStations.put(train, intermediateStations);
+            return listOfIntermediateStations.get(train).remove(stationName);
         }
-    }
-
-    private int stringsToMinutes(String time) {
-        String[] timeParts = time.split(":");
-        int hours = Integer.parseInt(timeParts[0]);
-        int hoursToMinutes = hours * 60;
-        int minutes = Integer.parseInt(timeParts[1]);
-        return hoursToMinutes + minutes;
-    }
-
-    private String minutesToString(int minutes) {
-        int hours = minutes / 60;
-        int newMinutes = minutes - hours * 60;
-        String hoursToString = Integer.toString(hours);
-        String minutesToString = Integer.toString(newMinutes);
-        return String.join(":", hoursToString, minutesToString);
+        return false;
     }
 
     public Map<Train, List<String>> getListOfIntermediateStations() {
@@ -68,38 +45,37 @@ public class Schedule {
         this.listOfIntermediateStations = listOfIntermediateStations;
     }
 
-    public Map<Train, String> getTrainDepartureTime() {
+    public Map<Train, Time> getTrainDepartureTime() {
         return trainDepartureTime;
     }
 
-    public void setTrainDepartureTime(Map<Train, String> trainDepartureTime) {
+    public void setTrainDepartureTime(Map<Train, Time> trainDepartureTime) {
         this.trainDepartureTime = trainDepartureTime;
     }
 
-    /*Train findNearestTrain(String currentTime, String arrivalStation) { // не void, а Train!!!
+    Train findNearestTrain(Time currentTime, String arrivalStation) { 
         List<Train> sutableKeys = new ArrayList<>();
         for (Map.Entry<Train, List<String>> pair : listOfIntermediateStations.entrySet()) {
             List<String> stations = pair.getValue();
             Train train = pair.getKey();
             if (stations.contains(arrivalStation)) {
                 sutableKeys.add(train);
-            } else if (train.endStation.equals(arrivalStation)) {
+            } else if (train.getEndStation().equals(arrivalStation)) {
                 sutableKeys.add(train);
             }
         } // эта часть собирает поезда(ключи) с наличием нужной станции
 
-        Map<Train, String> sutableTrains = new HashMap<>();
+        Map<Train, Time> sutableTrains = new HashMap<>();
         for (Train sutableTrain : sutableKeys) {
-            String value = trainDepartureTime.get(sutableTrain);
-            if (trainDepartureTime.containsKey(sutableTrain))
+            Time value = trainDepartureTime.get(sutableTrain);
+            if (trainDepartureTime.containsKey(sutableTrain) || (value.getHours() >= currentTime.getHours()))
                 sutableTrains.put(sutableTrain, value);
         } // эта часть собирает нужные поезда с их временем отправления в отдельную мапу
 
-        int curTimeSeconds = stringsToMinutes(currentTime);
         int min = Integer.MAX_VALUE;
 
-        for (Map.Entry<Train, String> secondPair : sutableTrains.entrySet()) {
-            String sutableValue = secondPair.getValue();
+        /*for (Map.Entry<Train, Time> secondPair : sutableTrains.entrySet()) {
+            Time sutableValue = secondPair.getValue();
             int transporter = stringsToMinutes(sutableValue);
             if ((transporter < min) && (transporter >= curTimeSeconds))
                 min = stringsToMinutes(sutableValue);
@@ -112,9 +88,11 @@ public class Schedule {
             String trainValue = thirdPair.getValue();
             if (trainValue.equals(minTimeString))
                 answerTrain = trainKey;
-        }
-        return answerTrain;*/
+        }*/
+        return answerTrain;
+
     }
+}
 
 
 
