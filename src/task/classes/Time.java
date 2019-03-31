@@ -7,28 +7,32 @@ public class Time {
     private int minutes;
 
     public Time(int hours, int minutes) {
-        this.hours = hours;
-        this.minutes = minutes;
+        if (hours > 23 || hours < 0)
+            System.out.println("Ошибка ввода!");
+        else this.hours = hours;
+        if (minutes > 59 || minutes < 0)
+            System.out.println("Ошибка ввода!");
+        else this.minutes = minutes;
     }
 
     int getHours() {
         return hours;
     }
 
-    public void setHours(byte hours) {
+    public void setHours(int hours) {
         if (hours > 23 || hours < 0)
             System.out.println("Ошибка ввода!");
-        this.hours = hours;
+        else this.hours = hours;
     }
 
     int getMinutes() {
         return minutes;
     }
 
-    public void setMinutes(byte minutes) {
+    public void setMinutes(int minutes) {
         if (minutes > 59 || minutes < 0)
             System.out.println("Ошибка ввода!");
-        this.minutes = minutes;
+        else this.minutes = minutes;
     }
 
     @Override
