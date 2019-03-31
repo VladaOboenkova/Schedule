@@ -37,6 +37,9 @@ public class Time {
 
     @Override
     public String toString(){
+        if (this.minutes == 0 && this.hours < 10) return "0" + this.hours + ":" + this.minutes + "0";
+        if (this.minutes == 0) return this.hours + "" + ":" + this.minutes + "0";
+        if (this.hours < 10) return "0" + this.hours + ":" + this.minutes;
         return this.hours + "" + ":" + this.minutes + "";
     }
 }
