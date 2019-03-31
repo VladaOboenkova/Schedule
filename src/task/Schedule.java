@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Schedule {
 
-    private Map<Train, Time> trainDepartureTime = new HashMap<>();
+    private  Map<Train, Time> trainDepartureTime = new HashMap<>();
 
     public Map<Train, Time> getTrainDepartureTime() {
         return trainDepartureTime;
@@ -58,8 +58,11 @@ public class Schedule {
             else sutableTrains.remove(train, sutableValue);
         } // эта часть находит минимальное время; остаётся массив с одним временем, либо несколько
 
-        if (sutableTrains.size() != 1)
-            System.out.println("Ошибка данных!");
+       /* if (sutableTrains.size() != 1)
+            System.out.println("Ошибка данных!");*/
+       // оставлю список из нескольких поездов с одинаковыми временами, если вдруг такая ситуация происходит
+        // потому что они могут отъезжать с разных путей, но в одно время, поэтому
+        // нет смыслового конфликта
 
         return sutableTrains;
     }
