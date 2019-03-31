@@ -22,6 +22,5 @@ public class Main {
         schedule.addNewTrain(train3, time3);
         System.out.println(schedule.getTrainDepartureTime());
 
-        System.out.println(schedule.addIntermediateStation(train1, "A"));
     }
 }
