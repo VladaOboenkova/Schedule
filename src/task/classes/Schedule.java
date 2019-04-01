@@ -16,7 +16,9 @@ public class Schedule {
     }
 
     public boolean removeTrain(Train train) {
+        if (trainDepartureTime.containsKey(train))
         trainDepartureTime.remove(train);
+        else System.out.println("Ошибка ввода! Заданный поезд отсутствует!");
         return !trainDepartureTime.containsKey(train);
     }
 
