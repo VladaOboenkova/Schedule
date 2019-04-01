@@ -30,7 +30,6 @@ public class Schedule {
                 sutableKeys.add(train);
             else if (train.getEndStation().equals(arrivalStation))
                 sutableKeys.add(train);
-            else System.out.println("Нет доступного поезда!");
         }
 
         Map<Train, Time> sutableTrains = new HashMap<>();

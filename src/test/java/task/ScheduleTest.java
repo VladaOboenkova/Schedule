@@ -57,9 +57,6 @@ public class ScheduleTest {
         actual.put(train3, time3);
 
         Assert.assertEquals(schedule.getTrainDepartureTime(), actual);
-
-        schedule.removeTrain(train1);
-        Assert.assertEquals(schedule.getTrainDepartureTime(), actual);
     }
 
     @Test
@@ -74,9 +71,17 @@ public class ScheduleTest {
         Time time2 = new Time(8, 30);
         Time time3 = new Time(8, 10);
 
+        Time currentTime = new Time(7, 30);
+
         schedule.addNewTrain(train1, time1);
         schedule.addNewTrain(train2, time2);
         schedule.addNewTrain(train3, time3);
 
+        Map<Train, Time> expected = schedule.findNearestTrain(currentTime, "Moscow");
+
+        Map<Train, Time> actual = new HashMap<>();
+        actual.put(train1, time1);
+
+        Assert.assertEquals(expected, actual);
     }
 }
