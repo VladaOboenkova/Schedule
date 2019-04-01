@@ -39,14 +39,15 @@ public class Train {
         this.listOfStations = listOfStations;
     }
 
-    boolean addStation(Train train, String stationName) {
+    public boolean addStation(String stationName) {
         return listOfStations.add(stationName);
     }
 
-    boolean removeStation(Train train, String stationName) {
+    public boolean removeStation(String stationName) {
         if (listOfStations.contains(stationName)) {
             return listOfStations.remove(stationName);
         }
+        else System.out.println("Заданная станция отсутствует!");
         return false;
     }
 
