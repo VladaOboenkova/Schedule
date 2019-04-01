@@ -83,5 +83,8 @@ public class ScheduleTest {
         actual.put(train1, time1);
 
         Assert.assertEquals(expected, actual);
+
+        train2.addStation("Moscow");
+        Assert.assertEquals(expected, actual);
     }
 }
